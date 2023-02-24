@@ -14,16 +14,20 @@ countryInput.addEventListener(
   debounce(onCountryInput, DEBOUNCE_DELAY)
 );
 
+function clearMarkUp() {
+  countryList.innerHTML = '';
+  countryInfo.innerHTML = '';
+}
+
 function onCountryInput() {
   const name = countryInput.value.trim();
   if (name === '') {
-    return (countryList.innerHTML = ''), (countryInfo.innerHTML = '');
+    return clearMarkUp();
   }
 
   fetchCountries(name)
     .then(countries => {
-      countryList.innerHTML = '';
-      countryInfo.innerHTML = '';
+      clearMarkUp();
       if (countries.length === 1) {
         countryList.insertAdjacentHTML(
           'beforeend',
